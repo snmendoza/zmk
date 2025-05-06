@@ -151,6 +151,12 @@
 
 
       behaviors {
+            mwh: behavior_mouse_wheel {
+                compatible = "zmk,behavior-mouse-wheel";
+                label = "MOUSE_WHEEL";
+                #binding-cells = <1>;
+            };
+            
             mouse_wheel: mouse_wheel {
                 compatible = "zmk,behavior-sensor-rotate-var";
                 label = "MOUSE_WHEEL";
@@ -172,7 +178,7 @@
                           &mo 3      &kp LALT  &kp LGUI  &kp LCTRL  &mo 3         &mo 1  &kp SPACE  &mo 2   &kp RALT  &tog QWERTY
                 >;
 
-                sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &mouse_wheel SCROLL_DOWN SCROLL_UP>;
+                sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
             };
 
             lower_layer {
@@ -192,8 +198,8 @@
                 label = "mid";
                 bindings = <
     &kp F12            &kp F1           &kp F2           &kp F3           &kp F4           &kp F5                                     &kp F6  &kp F7  &kp F8          &kp F9          &kp F10          &kp F11
-    &ext_power EP_TOG  &rgb_ug RGB_HUD  &rgb_ug RGB_HUI  &rgb_ug RGB_SAD  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF                            &none   &none   &none           &kp UP_ARROW    &none            &none
-    &none              &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &none            &none            &none                                      &none   &none   &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &none
+    &ext_power EP_ON   &rgb_ug RGB_HUD  &rgb_ug RGB_HUI  &rgb_ug RGB_SAD  &rgb_ug RGB_SAI  &rgb_ug RGB_EFF                            &none   &none   &none           &kp UP_ARROW    &none            &none
+    &ext_power EP_TOG  &rgb_ug RGB_BRD  &rgb_ug RGB_BRI  &none            &none            &none                                      &none   &none   &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &none
     &none              &none            &none            &none            &none            &rgb_ug RGB_TOG            &rgb_ug RGB_TOG    &none  &none   &none   &none           &none           &none            &none
                                         &none            &none            &none            &none            &none              &none  &none   &mo 2   &none           &none
                 >;
@@ -209,7 +215,7 @@
                                  &mo 3              &trans            &trans        &trans        &mo 3     &trans  &trans     &trans    &trans    &trans
                 >;
 
-                sensor-bindings = <&inc_dec_kp LS(LA(C_VOL_UP)) LS(LA(C_VOL_DN)) &inc_dec_kp PG_UP PG_DN>;
+                sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
             };
 
             qwerty_layer {
@@ -228,11 +234,11 @@
 
             adjust {
                 bindings = <
-    &trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans  &trans  &trans  &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-    &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                    &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
+    &trans       &trans        &trans        &trans       &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+    &bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2 &trans  &ext_power EP_ON          &trans  &trans  &trans  &trans  &trans  &trans
+    &ext_power EP_ON &ext_power EP_TOG &trans &trans      &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
+    &bootloader  &reset        &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &reset  &bootloader
+                               &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
                 >;
             };
 
