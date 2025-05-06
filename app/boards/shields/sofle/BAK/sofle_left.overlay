@@ -5,7 +5,6 @@
  */
 
 #include "sofle.dtsi"
-#include "trackpad.overlay"
 
 &kscan0 {
     col-gpios
@@ -20,9 +19,4 @@
 
 &left_encoder {
     status = "okay";
-};
-
-&trackpad_listener {
-    status = "okay";
-    device = <&pinnacle_trackpad>;
 };

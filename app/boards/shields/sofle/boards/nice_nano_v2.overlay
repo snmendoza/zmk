@@ -1,9 +1,26 @@
 #include <dt-bindings/led/led.h>
 
 &pinctrl {
+    i2c0_default: i2c0_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 20)>;
+        };
+    };
+
+    i2c0_sleep: i2c0_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
+                    <NRF_PSEL(TWIM_SCL, 0, 20)>;
+            low-power-enable;
+        };
+    };
+
     spi3_default: spi3_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_MOSI, 0, 6)>;
+            psels = <NRF_PSEL(SPIM_SCK, 0, 8)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 6)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 7)>;
         };
     };
 
@@ -18,33 +35,53 @@
 &spi3 {
     compatible = "nordic,nrf-spim";
     status = "okay";
-
     pinctrl-0 = <&spi3_default>;
     pinctrl-1 = <&spi3_sleep>;
     pinctrl-names = "default", "sleep";
 
     led_strip: ws2812@0 {
         compatible = "worldsemi,ws2812-spi";
-
-        /* SPI */
-        reg = <0>; /* ignored, but necessary for SPI bindings */
-        spi-max-frequency = <4000000>;
-
-        /* WS2812 */
-        chain-length = <36>; /* arbitrary; change at will */
+        reg = <0>;
+        spi-max-frequency = <3800000>;
+        chain-length = <20>;
         spi-one-frame = <0x70>;
         spi-zero-frame = <0x40>;
-
-        color-mapping = <
-            LED_COLOR_ID_GREEN
-            LED_COLOR_ID_RED
-            LED_COLOR_ID_BLUE
-        >;
+        color-mapping = <LED_COLOR_ID_RED LED_COLOR_ID_GREEN LED_COLOR_ID_BLUE>;
     };
 };
 
 / {
     chosen {
         zmk,underglow = &led_strip;
+        zephyr,display = &oled;
+    };
+
+    /* CRITICAL: Explicitly declare device dependency */
+    leds {
+        compatible = "zmk,led-strip";
+        led_strip = &led_strip;
+    };
+};
+
+&pro_micro_i2c {
+    status = "okay";
+    
+    /* Standard speed by default */
+    clock-frequency = <100000>;
+    
+    oled: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <32>;
+        segment-offset = <0>;
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <31>;
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        inversion-on;
+        prechargep = <0x22>;
     };
 };

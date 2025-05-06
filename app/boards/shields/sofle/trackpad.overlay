@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2023 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/ {
+    chosen {
+        zephyr,pointing-device = &pinnacle_trackpad;
+    };
+};
+
+&pro_micro_i2c {
+    status = "okay";
+
+    pinnacle_trackpad: pinnacle_trackpad@2a {
+        compatible = "cirque,pinnacle";
+        reg = <0x2A>;
+        status = "okay";
+
+        /* Uncomment and adjust if you have a DR (data ready) pin connected */
+        /* dr-gpios = <&pro_micro 5 GPIO_ACTIVE_HIGH>; */
+
+        /* Optional configuration parameters */
+        sensitivity = "4x";            /* Can be: 1x, 2x, 3x, 4x (default), 5x, 6x, 7x, 8x */
+    };
+}; 
