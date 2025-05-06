@@ -13,6 +13,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define MOUSE_SCROLL_MAX 100
 #undef SCROLL_UP
@@ -30,6 +31,7 @@
 #define RAISE 3
 #define QWERTY 4
 #define ADJUST 5
+#define TRACK 6
 
 
 
@@ -163,6 +165,15 @@
                 #sensor-binding-cells = <2>;
                 bindings = <&mwh>, <&mwh>;
             };
+
+            trackpad_layer: trackpad_layer {
+                compatible = "zmk,behavior-hold-tap";
+                label = "TRACKPAD_LAYER";
+                #binding-cells = <2>;
+                flavor = "balanced";
+                tapping-term-ms = <200>;
+                bindings = <&mo>, <&kp>;
+            };
         };
 
         keymap {
@@ -175,7 +186,7 @@
     &kp TAB    &kp SLASH  &kp COMMA  &kp DOT   &kp P     &kp Y                           &kp F      &kp G   &kp C     &kp R     &kp L   &kp BSLH
     &kp LSHFT  &kp A      &kp O      &kp E     &kp U     &kp I                           &kp D      &kp H   &kp T     &kp N     &kp S   &kp RET
     &kp LCTRL  &kp SEMI   &kp Q      &kp J     &kp K     &kp X      &kp C_MUTE    &none  &kp B      &kp M   &kp W     &kp V     &kp Z   &kp RSHFT
-                          &mo 3      &kp LALT  &kp LGUI  &kp LCTRL  &mo 3         &mo 1  &kp SPACE  &mo 2   &kp RALT  &tog QWERTY
+                          &mo 3      &kp LALT  &kp LGUI  &kp LCTRL  &mo 3         &mo 1  &trackpad_layer TRACK SPACE  &mo 2   &kp RALT  &tog QWERTY
                 >;
 
                 sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -237,12 +248,19 @@
     &trans       &trans        &trans        &trans       &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
     &bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2 &trans  &ext_power EP_ON          &trans  &trans  &trans  &trans  &trans  &trans
     &ext_power EP_ON &ext_power EP_TOG &trans &trans      &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-    &bootloader  &trans        &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &bootloader
+    &bootloader  &sys_reset    &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &sys_reset  &bootloader
                                &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
                 >;
             };
 
-
-
+            trackpad_layer {
+                bindings = <
+    &trans  &trans  &trans  &trans  &trans  &trans                    &trans        &trans        &trans         &trans  &trans  &trans
+    &trans  &trans  &trans  &trans  &trans  &trans                    &trans        &trans        &mmv MOVE_UP   &trans  &trans  &trans
+    &trans  &trans  &trans  &trans  &trans  &trans                    &trans        &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &trans  &trans
+    &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans        &trans        &trans         &trans  &trans  &trans
+                    &trans  &trans  &trans  &trans  &trans    &trans  &trans        &mkp LCLK     &mkp RCLK      &trans
+                >;
+            };
         };
     };

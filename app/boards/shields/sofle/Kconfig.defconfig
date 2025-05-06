@@ -11,6 +11,9 @@ config ZMK_SPLIT_ROLE_CENTRAL
 
 endif
 
+config ZMK_POINTING
+    default y
+    
 if SHIELD_SOFLE_LEFT || SHIELD_SOFLE_RIGHT
 
 config ZMK_SPLIT
