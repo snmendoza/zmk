@@ -237,7 +237,7 @@
     &trans       &trans        &trans        &trans       &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
     &bt BT_CLR   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2 &trans  &ext_power EP_ON          &trans  &trans  &trans  &trans  &trans  &trans
     &ext_power EP_ON &ext_power EP_TOG &trans &trans      &trans  &trans                    &trans  &trans  &trans  &trans  &trans  &trans
-    &bootloader  &reset        &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &reset  &bootloader
+    &bootloader  &trans        &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans  &bootloader
                                &trans        &trans       &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans
                 >;
             };
