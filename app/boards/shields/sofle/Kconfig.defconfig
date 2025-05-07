@@ -1,19 +1,13 @@
 # Copyright (c) 2020 Ryan Cross
 # SPDX-License-Identifier: MIT
 
-if SHIELD_SOFLE_RIGHT
+if SHIELD_SOFLE_LEFT
 
 config ZMK_KEYBOARD_NAME
     default "Sofle"
 
-config ZMK_SPLIT_ROLE_CENTRAL
-    default y
-
-config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING
-    default y
-
-config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY
-    default y
+#config ZMK_SPLIT_ROLE_CENTRAL
+#    default y
 
 endif
 
@@ -22,20 +16,23 @@ if SHIELD_SOFLE_LEFT || SHIELD_SOFLE_RIGHT
 config ZMK_SPLIT
     default y
 
-# Define PINNACLE symbol to avoid the warning
-config PINNACLE
-    bool "Pinnacle trackpad support"
-    default n
-    help
-      Enable support for Pinnacle trackpad
-
 if ZMK_DISPLAY
+
+config ZMK_DISPLAY
+    select LV_USE_CONT
+    select LV_FONT_MONTSERRAT_26
+    select LV_FONT_MONTSERRAT_16
+    select LV_USE_LABEL
+    select LV_USE_IMG
 
 config I2C
     default y
 
 config SSD1306
     default y
+
+config SSD1306_REVERSE_MODE
+    default n
 
 endif # ZMK_DISPLAY
 
@@ -44,7 +41,7 @@ if LVGL
 config LV_Z_VDB_SIZE
     default 64
 
-config LV_DPI_DEF
+config LV_Z_DPI
     default 148
 
 config LV_Z_BITS_PER_PIXEL
@@ -56,14 +53,16 @@ endchoice
 
 endif # LVGL
 
+config PINNACLE
+    default y
+
+config ZMK_MOUSE
+    default y
+
 if ZMK_RGB_UNDERGLOW
 
 config WS2812_STRIP
     default y
-
-config ZMK_RGB_UNDERGLOW_EXT_POWER
-    default y
-
 endif
 
 endif
