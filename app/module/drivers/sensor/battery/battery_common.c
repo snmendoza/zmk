@@ -32,12 +32,13 @@ int battery_channel_get(const struct battery_value *value, enum sensor_channel c
 uint8_t lithium_ion_mv_to_pct(int16_t bat_mv) {
     // Simple linear approximation of a battery based off adafruit's discharge graph:
     // https://learn.adafruit.com/li-ion-and-lipoly-batteries/voltages
+    // Edit: modified by Sean to be better compatible with 18650 cells
 
     if (bat_mv >= 4200) {
         return 100;
-    } else if (bat_mv <= 3450) {
+    } else if (bat_mv <= 3200) {
         return 0;
     }
 
-    return bat_mv * 2 / 15 - 459;
+    return (bat_mv - 3200) / 10; // 3.2V to 4.2V, linear
 }
