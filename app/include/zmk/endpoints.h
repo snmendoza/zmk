@@ -69,9 +69,4 @@ int zmk_endpoints_toggle_transport(void);
 struct zmk_endpoint_instance zmk_endpoints_selected(void);
 
 int zmk_endpoints_send_report(uint16_t usage_page);
-
-#if IS_ENABLED(CONFIG_ZMK_POINTING)
 int zmk_endpoints_send_mouse_report();
-#endif // IS_ENABLED(CONFIG_ZMK_POINTING)
-
-void zmk_endpoints_clear_current(void);

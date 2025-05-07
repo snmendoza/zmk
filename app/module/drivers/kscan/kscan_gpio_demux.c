@@ -9,7 +9,6 @@
 #include <zephyr/device.h>
 #include <zephyr/drivers/kscan.h>
 #include <zephyr/drivers/gpio.h>
-#include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
@@ -106,8 +105,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
     }                                                                                              \
                                                                                                    \
     static void kscan_gpio_work_handler_##n(struct k_work *work) {                                 \
-        struct k_work_delayable *d_work = k_work_delayable_from_work(work);                        \
-        struct kscan_gpio_data_##n *data = CONTAINER_OF(d_work, struct kscan_gpio_data_##n, work); \
+        struct kscan_gpio_data_##n *data = CONTAINER_OF(work, struct kscan_gpio_data_##n, work);   \
         kscan_gpio_read_##n(data->dev);                                                            \
     }                                                                                              \
                                                                                                    \

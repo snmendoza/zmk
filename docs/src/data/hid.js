@@ -2376,7 +2376,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_1", "KP_N1"],
-    description: "Keypad 1 and End",
+    description: "1",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2397,7 +2397,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_2", "KP_N2"],
-    description: "Keypad 2 and Down Arrow",
+    description: "2",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2418,7 +2418,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_3", "KP_N3"],
-    description: "Keypad 3 and Page Down",
+    description: "3",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2439,7 +2439,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_4", "KP_N4"],
-    description: "Keypad 4 and Left Arrow",
+    description: "4",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2460,7 +2460,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_5", "KP_N5"],
-    description: "Keypad 5",
+    description: "5",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2481,7 +2481,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_6", "KP_N6"],
-    description: "Keypad 6 and Right Arrow",
+    description: "6",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2502,7 +2502,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_7", "KP_N7"],
-    description: "Keypad 7 and Home",
+    description: "7",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2523,7 +2523,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_8", "KP_N8"],
-    description: "Keypad 8 and Up Arrow",
+    description: "8",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2544,7 +2544,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_9", "KP_N9"],
-    description: "Keypad 9 and Page Up",
+    description: "9",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2565,7 +2565,7 @@ export default [
   },
   {
     names: ["KP_NUMBER_0", "KP_N0"],
-    description: "Keypad 0 and Insert",
+    description: "0",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -2586,7 +2586,7 @@ export default [
   },
   {
     names: ["KP_DOT"],
-    description: ". [Dot] and Delete",
+    description: ". [Dot]",
     context: "Keypad",
     clarify: false,
     usages: [
@@ -5024,7 +5024,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: true,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -5150,7 +5150,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: false,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -5171,9 +5171,9 @@ export default [
     os: {
       windows: true,
       linux: true,
-      android: true,
+      android: null,
       macos: true,
-      ios: true,
+      ios: null,
     },
     footnotes: {},
   },
@@ -5192,9 +5192,9 @@ export default [
     os: {
       windows: true,
       linux: true,
-      android: true,
+      android: null,
       macos: true,
-      ios: true,
+      ios: null,
     },
     footnotes: {},
   },
@@ -5213,7 +5213,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: false,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -5234,7 +5234,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: false,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -5255,7 +5255,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: false,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -5276,7 +5276,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: false,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -5887,7 +5887,7 @@ export default [
       linux: true,
       android: true,
       macos: true,
-      ios: true,
+      ios: null,
     },
     footnotes: {},
   },
@@ -5908,7 +5908,7 @@ export default [
       linux: true,
       android: true,
       macos: true,
-      ios: true,
+      ios: null,
     },
     footnotes: {},
   },
@@ -6011,7 +6011,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: false,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -6055,7 +6055,7 @@ export default [
       linux: true,
       android: true,
       macos: true,
-      ios: true,
+      ios: null,
     },
     footnotes: {},
   },
@@ -6096,8 +6096,8 @@ export default [
       windows: true,
       linux: true,
       android: true,
-      macos: true,
-      ios: true,
+      macos: null,
+      ios: null,
     },
     footnotes: {},
   },
@@ -6139,7 +6139,7 @@ export default [
       linux: true,
       android: true,
       macos: true,
-      ios: true,
+      ios: null,
     },
     footnotes: {},
   },
@@ -6160,7 +6160,7 @@ export default [
       linux: true,
       android: true,
       macos: true,
-      ios: true,
+      ios: null,
     },
     footnotes: {},
   },
@@ -6179,7 +6179,7 @@ export default [
     os: {
       windows: false,
       linux: true,
-      android: false,
+      android: null,
       macos: null,
       ios: null,
     },
@@ -6453,8 +6453,8 @@ export default [
       windows: null,
       linux: true,
       android: true,
-      macos: false,
-      ios: false,
+      macos: null,
+      ios: null,
     },
     footnotes: {},
   },
@@ -6537,8 +6537,8 @@ export default [
       windows: null,
       linux: true,
       android: true,
-      macos: false,
-      ios: false,
+      macos: null,
+      ios: null,
     },
     footnotes: {},
   },

@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: CC-BY-NC-SA-4.0
  */
 
+import React from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

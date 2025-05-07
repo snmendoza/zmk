@@ -6,7 +6,7 @@
 
 #include "jorne.dtsi"
 
-&jorne_transform {
+&default_transform {
     col-offset = <6>;
 };
 

@@ -1,6 +1,6 @@
 /*
 *
-* Copyright (c) 2023 The ZMK Contributors
+* Copyright (c) 2022 The ZMK Contributors
 * SPDX-License-Identifier: MIT
 *
 */
@@ -10,7 +10,6 @@
 /{
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
 
         diode-direction = "col2row";
         row-gpios

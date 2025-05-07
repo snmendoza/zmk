@@ -14,8 +14,7 @@
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-
+        label = "KSCAN";
         diode-direction = "col2row";
 
          row-gpios
@@ -37,24 +36,25 @@
 
     top_encoder: encoder_top {
         compatible = "alps,ec11";
+        label = "TOP_ENCODER";
         a-gpios = <&pro_micro 19 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro 18 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        steps = <80>;
+        resolution = <4>;
         status = "okay";
     };
 
     bottom_encoder: encoder_bottom {
         compatible = "alps,ec11";
+        label = "BOTTOM_ENCODER";
         a-gpios = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         b-gpios = <&pro_micro 21 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        steps = <80>;
+        resolution = <4>;
         status = "okay";
     };
 
-    sensors: sensors {
+    sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&top_encoder &bottom_encoder>;
-        triggers-per-rotation = <20>;
     };
 
 };
@@ -65,6 +65,7 @@
     oled: ssd1306@3c {
         compatible = "solomon,ssd1306fb";
         reg = <0x3c>;
+        label = "DISPLAY";
         width = <128>;
         height = <32>;
         segment-offset = <0>;
@@ -74,7 +75,6 @@
         segment-remap;
         com-invdir;
         com-sequential;
-        inversion-on;
         prechargep = <0x22>;
     };
 };

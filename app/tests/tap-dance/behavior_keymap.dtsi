@@ -6,15 +6,17 @@
     behaviors {
         ht: hold_tap {
             compatible = "zmk,behavior-hold-tap";
+            label = "HOLD_TAP";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick-tap-ms = <0>;
+            quick_tap_ms = <0>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
 
         tdm: tap_dance_mixed {
             compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_MOD";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&ht LSHIFT A>, <&ht LALT B>, <&ht LGUI C>;
@@ -22,6 +24,7 @@
 
         tdb: tap_dance_basic {
             compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_BASIC";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp N1>, <&kp N2>, <&kp N3>;
@@ -29,6 +32,7 @@
 
         td2: tap_dance_basic_2 {
             compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_BASIC_2";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp A>, <&kp B>, <&kp C>;
@@ -36,6 +40,7 @@
 
         tds: tap_dance_single {
             compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_SINGlE";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
             bindings = <&kp S>;
@@ -54,6 +59,7 @@
 
     keymap {
         compatible = "zmk,keymap";
+        label = "Default keymap";
 
         default_layer {
             bindings = <

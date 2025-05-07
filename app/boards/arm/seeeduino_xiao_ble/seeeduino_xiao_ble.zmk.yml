@@ -1,6 +1,6 @@
 file_format: "1"
 id: seeeduino_xiao_ble
-name: Seeed Studio XIAO nRF52840
+name: Seeeduino XIAO BLE
 type: board
 arch: arm
 outputs:

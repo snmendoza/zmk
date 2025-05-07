@@ -12,6 +12,7 @@
     behaviors {
         tp_short: short_tap {
             compatible = "zmk,behavior-hold-tap";
+            label = "MOD_TAP_SHORT";
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <100>;
@@ -20,6 +21,7 @@
         };
         tp_long: long_tap {
             compatible = "zmk,behavior-hold-tap";
+            label = "MOD_TAP_LONG";
             #binding-cells = <2>;
             flavor = "tap-preferred";
             tapping-term-ms = <200>;
@@ -30,6 +32,7 @@
 
     keymap {
         compatible = "zmk,keymap";
+        label ="Default keymap";
 
         default_layer {
             bindings = <

@@ -1,3 +1,5 @@
+import React from "react";
+
 import Heading from "@theme/Heading";
 
 import { HardwareMetadata } from "../hardware-metadata";
@@ -18,11 +20,11 @@ function itemHasMultiple(item: HardwareMetadata) {
 
 function itemIds(item: HardwareMetadata) {
   if (item.type == "board" || item.type == "shield") {
-    const nodes = (item.siblings ?? [item.id])
-      .map((id) => <code key={id}>{id}</code>)
-      .reduce<ElementOrString[]>(
+    let nodes = (item.siblings ?? [item.id])
+      .map<ElementOrString>((id) => <code key={id}>{id}</code>)
+      .reduce(
         (prev, curr, index) => [...prev, index > 0 ? ", " : "", curr],
-        []
+        [] as ElementOrString[]
       );
     return <span key={item.id}>{nodes}</span>;
   } else {
@@ -81,7 +83,7 @@ function mapInterconnect({
 }
 
 function HardwareList({ items }: HardwareListProps) {
-  const grouped = groupedMetadata(items);
+  let grouped = groupedMetadata(items);
 
   return (
     <>

@@ -8,16 +8,16 @@
 #include <rpi_pico/rp2040.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
 
-#include <layouts/common/65percent/ansi.dtsi>
-
 / {
 
     chosen {
         zephyr,sram = &sram0;
         zephyr,flash = &flash0;
+        zephyr,console = &cdc_acm_uart;
+        zephyr,shell-uart = &cdc_acm_uart;
         zephyr,code-partition = &code_partition;
         zmk,kscan = &kscan0;
-        zmk,physical-layout = &layout_65_ansi;
+        zmk,matrix_transform = &default_transform;
     };
 
     xtal_clk: xtal-clk {
@@ -53,6 +53,7 @@ RC(4,0) RC(4,1) RC(4,2)                         RC(4,6)         RC(4,8) RC(4,9) 
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
+        label = "KSCAN";
 
         diode-direction = "col2row";
         row-gpios
@@ -92,6 +93,7 @@ RC(4,0) RC(4,1) RC(4,2)                         RC(4,6)         RC(4,8) RC(4,9) 
 
         /* Reserved memory for the second stage bootloader */
         second_stage_bootloader: partition@0 {
+            label = "second_stage_bootloader";
             reg = <0x00000000 0x100>;
             read-only;
         };
@@ -101,6 +103,7 @@ RC(4,0) RC(4,1) RC(4,2)                         RC(4,6)         RC(4,8) RC(4,9) 
          * size is 16MB minus the 0x100 bytes taken by the bootloader.
          */
         code_partition: partition@100 {
+            label = "code";
             reg = <0x100 (DT_SIZE_M(16) - 0x100)>;
             read-only;
         };
@@ -108,8 +111,11 @@ RC(4,0) RC(4,1) RC(4,2)                         RC(4,6)         RC(4,8) RC(4,9) 
 };
 
 
-zephyr_udc0: &usbd {
+&usbd {
   status = "okay";
+  cdc_acm_uart: cdc_acm_uart {
+    compatible = "zephyr,cdc-acm-uart";
+  };
 };
 
 
@@ -117,6 +123,3 @@ zephyr_udc0: &usbd {
     status = "okay";
 };
 
-&layout_65_ansi {
-    transform = <&default_transform>;
-};

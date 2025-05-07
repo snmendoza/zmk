@@ -10,11 +10,7 @@ include: kscan.yaml
 properties:
   input-gpios:
     type: phandle-array
-    required: false
-  input-keys:
-    type: phandles
-    required: false
-    description: List of gpio-key references
+    required: true
   debounce-period:
     type: int
     required: false

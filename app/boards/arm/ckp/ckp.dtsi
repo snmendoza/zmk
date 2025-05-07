@@ -26,16 +26,14 @@
         zmk,battery = &vbatt;
     };
 
-    sensors: sensors {
+    sensors {
         compatible = "zmk,keymap-sensors";
         sensors = <&encoder_1>;
-        triggers-per-rotation = <20>;
     };
 
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
-
+        label = "KSCAN";
         diode-direction = "col2row";
 
         col-gpios
@@ -67,38 +65,42 @@
             ;
     };
 
-    // Node name must match original "EXT_POWER" label to preserve user settings.
-    EXT_POWER {
+    ext-power {
         compatible = "zmk,ext-power-generic";
+        label = "EXT_POWER";
         control-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
     };
 
     encoder_1: encoder_1 {
         compatible = "alps,ec11";
+        label = "ENCODER_ONE";
         a-gpios = <&gpio0 21 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <80>;
+        resolution = <4>;
         status = "okay";
     };
 
     encoder_2: encoder_2 {
         compatible = "alps,ec11";
+        label = "ENCODER_TWO";
         a-gpios = <&gpio0 26 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <80>;
+        resolution = <4>;
         status = "okay";
     };
 
     encoder_3: encoder_3 {
         compatible = "alps,ec11";
+        label = "encoder_3";
         a-gpios = <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
         b-gpios = <&gpio0 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_UP)>;
-        steps = <80>;
+        resolution = <4>;
         status = "okay";
     };
 
     backlight: pwmleds {
         compatible = "pwm-leds";
+        label = "Backlight LEDs";
         pwm_led_0 {
             pwms = <&pwm0 0 10000 PWM_POLARITY_NORMAL>;
         };
@@ -108,11 +110,13 @@
         compatible = "gpio-leds";
         blue_led: led_0 {
             gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
+            label = "Blue LED";
         };
     };
 
     vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
+        label = "VBATT";
         io-channels = <&adc 2>;
         output-ohms = <100000>;
         full-ohms = <(100000 + 100000)>;
@@ -142,7 +146,7 @@
     status = "okay";
 };
 
-zephyr_udc0: &usbd {
+&usbd {
     status = "okay";
 };
 
@@ -158,9 +162,11 @@ zephyr_udc0: &usbd {
         #size-cells = <1>;
 
         sd_partition: partition@0 {
+            label = "softdevice";
             reg = <0x00000000 0x00026000>;
         };
         code_partition: partition@26000 {
+            label = "code_partition";
             reg = <0x00026000 0x000c6000>;
         };
 
@@ -174,10 +180,12 @@ zephyr_udc0: &usbd {
          * if enabled.
          */
         storage_partition: partition@ec000 {
+            label = "storage";
             reg = <0x000ec000 0x00008000>;
         };
 
         boot_partition: partition@f4000 {
+            label = "adafruit_boot";
             reg = <0x000f4000 0x0000c000>;
         };
     };
@@ -192,6 +200,7 @@ zephyr_udc0: &usbd {
 
     led_strip: ws2812@0 {
         compatible = "worldsemi,ws2812-spi";
+        label = "WS2812";
 
         /* SPI */
         reg = <0>;

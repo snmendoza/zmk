@@ -8,7 +8,6 @@ exposes: [i2c_oled]
 features:
   - keys
   - display
-  - studio
 siblings:
   - lily58_left
   - lily58_right

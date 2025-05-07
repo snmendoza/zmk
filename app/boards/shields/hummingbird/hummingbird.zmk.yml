@@ -6,4 +6,3 @@ url: https://github.com/PJE66/hummingbird
 requires: [seeed_xiao]
 features:
   - keys
-  - studio

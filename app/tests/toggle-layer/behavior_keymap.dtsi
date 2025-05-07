@@ -5,11 +5,12 @@
 / {
     keymap {
         compatible = "zmk,keymap";
+        label ="Default keymap";
 
         default_layer {
             bindings = <
                 &kp B &tog 1
-                &kp D &to 1>;
+                &kp D &kp G>;
         };
 
         lower_layer {

@@ -6,4 +6,3 @@ url: https://www.cbkbd.com/product/qaz-keyboard-kit
 requires: [pro_micro]
 features:
   - keys
-  - studio

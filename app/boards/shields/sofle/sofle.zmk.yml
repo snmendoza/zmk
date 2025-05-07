@@ -8,9 +8,9 @@ exposes: [i2c_oled]
 features:
   - keys
   - display
+  - pointer
   - encoder
   - underglow
-  - studio
 siblings:
   - sofle_left
   - sofle_right

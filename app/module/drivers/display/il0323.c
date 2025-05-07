@@ -124,7 +124,11 @@ static int il0323_write(const struct device *dev, const uint16_t x, const uint16
     ptl[IL0323_PTL_HRED_IDX] = x_end_idx;
     ptl[IL0323_PTL_VRST_IDX] = y;
     ptl[IL0323_PTL_VRED_IDX] = y_end_idx;
+#if IS_ENABLED(CONFIG_IL0323_ALTERNATIVE_REFRESH)
+    ptl[sizeof(ptl) - 1] = 0; // limits fading outside of refresh window
+#else
     ptl[sizeof(ptl) - 1] = IL0323_PTL_PT_SCAN;
+#endif
     LOG_HEXDUMP_DBG(ptl, sizeof(ptl), "ptl");
 
     il0323_busy_wait(cfg);
@@ -177,7 +181,6 @@ static int il0323_clear_and_write_buffer(const struct device *dev, uint8_t patte
 
     line = k_malloc(IL0323_NUMOF_PAGES);
     if (line == NULL) {
-        LOG_ERR("Failed to allocate memory for the clear");
         return -ENOMEM;
     }
 
@@ -243,8 +246,12 @@ static void il0323_get_capabilities(const struct device *dev, struct display_cap
     memset(caps, 0, sizeof(struct display_capabilities));
     caps->x_resolution = EPD_PANEL_WIDTH;
     caps->y_resolution = EPD_PANEL_HEIGHT;
-    caps->supported_pixel_formats = PIXEL_FORMAT_MONO10;
+    caps->supported_pixel_formats = PIXEL_FORMAT_MONO10 | PIXEL_FORMAT_MONO01;
+#if IS_ENABLED(CONFIG_IL0323_INVERT)
+    caps->current_pixel_format = PIXEL_FORMAT_MONO01;
+#else
     caps->current_pixel_format = PIXEL_FORMAT_MONO10;
+#endif
     caps->screen_info = SCREEN_INFO_MONO_MSB_FIRST | SCREEN_INFO_EPD;
 }
 
@@ -255,7 +262,7 @@ static int il0323_set_orientation(const struct device *dev,
 }
 
 static int il0323_set_pixel_format(const struct device *dev, const enum display_pixel_format pf) {
-    if (pf == PIXEL_FORMAT_MONO10) {
+    if ((pf == PIXEL_FORMAT_MONO10) || (pf == PIXEL_FORMAT_MONO10)) {
         return 0;
     }
 
@@ -342,7 +349,7 @@ static int il0323_controller_init(const struct device *dev) {
 static int il0323_init(const struct device *dev) {
     const struct il0323_cfg *cfg = dev->config;
 
-    if (!spi_is_ready_dt(&cfg->spi)) {
+    if (!spi_is_ready(&cfg->spi)) {
         LOG_ERR("SPI device not ready for IL0323");
         return -EIO;
     }
@@ -371,14 +378,14 @@ static int il0323_init(const struct device *dev) {
     return il0323_controller_init(dev);
 }
 
-static const struct il0323_cfg il0323_config = {
+static struct il0323_cfg il0323_config = {
     .spi = SPI_DT_SPEC_INST_GET(0, SPI_OP_MODE_MASTER | SPI_WORD_SET(8), 0),
     .reset = GPIO_DT_SPEC_INST_GET(0, reset_gpios),
     .busy = GPIO_DT_SPEC_INST_GET(0, busy_gpios),
     .dc = GPIO_DT_SPEC_INST_GET(0, dc_gpios),
 };
 
-static const struct display_driver_api il0323_driver_api = {
+static struct display_driver_api il0323_driver_api = {
     .blanking_on = il0323_blanking_on,
     .blanking_off = il0323_blanking_off,
     .write = il0323_write,

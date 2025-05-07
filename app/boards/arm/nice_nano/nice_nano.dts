@@ -12,14 +12,15 @@
         zmk,battery = &vbatt;
     };
 
-    // Node name must match original "EXT_POWER" label to preserve user settings.
-    EXT_POWER {
+    ext-power {
         compatible = "zmk,ext-power-generic";
+        label = "EXT_POWER";
         control-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
     };
 
     vbatt: vbatt {
         compatible = "zmk,battery-voltage-divider";
+        label = "BATTERY";
         io-channels = <&adc 2>;
         output-ohms = <2000000>;
         full-ohms = <(2000000 + 806000)>;

@@ -11,6 +11,9 @@ config BOARD
 config ZMK_KEYBOARD_NAME
     default "Ferris rev 0.2"
 
+config ZMK_USB
+    default y
+
 config ZMK_KSCAN_MATRIX_POLLING
     default y
 

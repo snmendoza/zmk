@@ -5,7 +5,6 @@
  */
 
 #include <zmk/behavior_queue.h>
-#include <zmk/behavior.h>
 
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
@@ -15,9 +14,6 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 struct q_item {
     uint32_t position;
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-    uint8_t source;
-#endif
     struct zmk_behavior_binding binding;
     bool press : 1;
     uint32_t wait : 31;
@@ -36,16 +32,12 @@ static void behavior_queue_process_next(struct k_work *work) {
                 item.binding.param2);
 
         struct zmk_behavior_binding_event event = {.position = item.position,
-                                                   .timestamp = k_uptime_get(),
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-                                                   .source = item.source
-#endif
-        };
+                                                   .timestamp = k_uptime_get()};
 
         if (item.press) {
-            zmk_behavior_invoke_binding(&item.binding, event, true);
+            behavior_keymap_binding_pressed(&item.binding, event);
         } else {
-            zmk_behavior_invoke_binding(&item.binding, event, false);
+            behavior_keymap_binding_released(&item.binding, event);
         }
 
         LOG_DBG("Processing next queued behavior in %dms", item.wait);
@@ -57,17 +49,9 @@ static void behavior_queue_process_next(struct k_work *work) {
     }
 }
 
-int zmk_behavior_queue_add(const struct zmk_behavior_binding_event *event,
-                           const struct zmk_behavior_binding binding, bool press, uint32_t wait) {
-    struct q_item item = {
-        .press = press,
-        .binding = binding,
-        .wait = wait,
-        .position = event->position,
-#if IS_ENABLED(CONFIG_ZMK_SPLIT)
-        .source = event->source,
-#endif
-    };
+int zmk_behavior_queue_add(uint32_t position, const struct zmk_behavior_binding binding, bool press,
+                           uint32_t wait) {
+    struct q_item item = {.press = press, .binding = binding, .wait = wait};
 
     const int ret = k_msgq_put(&zmk_behavior_queue_msgq, &item, K_NO_WAIT);
     if (ret < 0) {

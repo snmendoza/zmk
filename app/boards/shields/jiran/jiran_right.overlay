@@ -6,7 +6,7 @@
 
 #include "jiran.dtsi"
 
-&jiran_transform {
+&default_transform {
     col-offset = <6>;
 };
 

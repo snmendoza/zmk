@@ -22,9 +22,9 @@ const METADATA_GLOB = path.posix.join(BASE_DIR, "app/boards/**/*.zmk.yml");
  * @param {string} file
  */
 async function readMetadata(file) {
-  const documents = /** @type HardwareMetadata[] */ (
-    yaml.loadAll(await fs.readFile(file, "utf-8"))
-  );
+  /** @type HardwareMetadata[] */
+  // @ts-ignore
+  const documents = yaml.loadAll(await fs.readFile(file, "utf-8"));
 
   return documents.map(
     (metadata) =>

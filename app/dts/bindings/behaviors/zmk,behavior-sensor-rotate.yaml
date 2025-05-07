@@ -8,8 +8,7 @@ compatible: "zmk,behavior-sensor-rotate"
 properties:
   label:
     type: string
-    required: false
-    deprecated: true
+    required: true
   "#sensor-binding-cells":
     type: int
     required: true

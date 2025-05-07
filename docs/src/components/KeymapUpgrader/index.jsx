@@ -7,11 +7,7 @@
 import React from "react";
 import { useAsync } from "react-async";
 
-import {
-  initParser,
-  upgradeKeymap,
-  rangesToLineNumbers,
-} from "@site/src/keymap-upgrade";
+import { initParser, upgradeKeymap } from "@site/src/keymap-upgrade";
 import CodeBlock from "@theme/CodeBlock";
 
 import styles from "./styles.module.css";
@@ -32,15 +28,7 @@ export default function KeymapUpgrader() {
 
 function Editor() {
   const [keymap, setKeymap] = React.useState("");
-
-  const { text: upgraded, changedRanges } = upgradeKeymap(keymap);
-  const highlights = rangesToLineNumbers(upgraded, changedRanges);
-
-  let title = "Upgraded Keymap";
-
-  if (keymap && upgraded === keymap) {
-    title += " (No Changes)";
-  }
+  const upgraded = upgradeKeymap(keymap);
 
   return (
     <div>
@@ -52,9 +40,7 @@ function Editor() {
         onChange={(e) => setKeymap(e.target.value)}
       ></textarea>
       <div className={styles.result}>
-        <CodeBlock language="dts" metastring={`${highlights} title="${title}"`}>
-          {upgraded}
-        </CodeBlock>
+        <CodeBlock metastring={'title="Upgraded Keymap"'}>{upgraded}</CodeBlock>
       </div>
     </div>
   );

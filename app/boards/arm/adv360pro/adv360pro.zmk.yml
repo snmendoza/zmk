@@ -8,7 +8,6 @@ features:
   - keys
   - underglow
   - backlight
-  - studio
 outputs:
   - usb
   - ble

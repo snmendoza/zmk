@@ -24,6 +24,7 @@ first so the decision to hold or tap can be made.
 
     keymap {
         compatible = "zmk,keymap";
+        label ="Default keymap";
 
         default_layer {
             bindings = <

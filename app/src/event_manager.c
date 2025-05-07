@@ -32,17 +32,21 @@ int zmk_event_manager_handle_from(zmk_event_t *event, uint8_t start_index) {
             continue;
         case ZMK_EV_EVENT_HANDLED:
             LOG_DBG("Listener handled the event");
-            return 0;
+            ret = 0;
+            goto release;
         case ZMK_EV_EVENT_CAPTURED:
             LOG_DBG("Listener captured the event");
+            // Listeners are expected to free events they capture
             return 0;
         default:
             LOG_DBG("Listener returned an error: %d", ret);
-            return ret;
+            goto release;
         }
     }
 
-    return 0;
+release:
+    k_free(event);
+    return ret;
 }
 
 int zmk_event_manager_raise(zmk_event_t *event) { return zmk_event_manager_handle_from(event, 0); }

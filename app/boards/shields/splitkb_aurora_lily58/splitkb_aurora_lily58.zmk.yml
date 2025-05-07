@@ -7,7 +7,6 @@ requires: [pro_micro]
 exposes: [i2c_oled]
 features:
   - keys
-  - studio
 siblings:
   - splitkb_aurora_lily58_left
   - splitkb_aurora_lily58_right

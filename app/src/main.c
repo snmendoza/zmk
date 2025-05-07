@@ -12,34 +12,27 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(zmk, CONFIG_ZMK_LOG_LEVEL);
 
-#if IS_ENABLED(CONFIG_ZMK_DISPLAY)
-
+#include <zmk/matrix.h>
+#include <zmk/kscan.h>
 #include <zmk/display.h>
-#include <lvgl.h>
+#include <drivers/ext_power.h>
 
-#endif
+#ifdef CONFIG_ZMK_MOUSE
+#include <zmk/mouse.h>
+#endif /* CONFIG_ZMK_MOUSE */
 
-int main(void) {
+void main(void) {
     LOG_INF("Welcome to ZMK!\n");
 
-#if IS_ENABLED(CONFIG_SETTINGS)
-    settings_subsys_init();
-    settings_load();
-#endif
+    if (zmk_kscan_init(DEVICE_DT_GET(ZMK_MATRIX_NODE_ID)) != 0) {
+        return;
+    }
 
 #ifdef CONFIG_ZMK_DISPLAY
     zmk_display_init();
-
-#if IS_ENABLED(CONFIG_ARCH_POSIX)
-    // Workaround for an SDL display issue:
-    // https://github.com/zephyrproject-rtos/zephyr/issues/71410
-    while (1) {
-        lv_task_handler();
-        k_sleep(K_MSEC(10));
-    }
-#endif
-
 #endif /* CONFIG_ZMK_DISPLAY */
 
-    return 0;
+#ifdef CONFIG_ZMK_MOUSE
+    zmk_mouse_init();
+#endif /* CONFIG_ZMK_MOUSE */
 }
